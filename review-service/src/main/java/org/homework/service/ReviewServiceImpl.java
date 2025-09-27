@@ -1,3 +1,4 @@
+// Corrected ReviewServiceImpl.java
 package org.homework.service;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -5,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.homework.entity.Review;
 import org.homework.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -19,23 +19,20 @@ import java.util.List;
 public class ReviewServiceImpl {
     private final ReviewRepository reviewRepository;
 
-    public Review get(Long reviewId){
+    public Review get(Long reviewId) {
         return reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new EntityNotFoundException("not found"));
     }
+
     public boolean addReview(Long companyId, Review review) {
         if (companyId == null || review == null) {
             return false;
         }
-        // Set the foreign key on the review object
         review.setCompanyId(companyId);
-
         try {
-            // Use the repository to save the review to the database
             reviewRepository.save(review);
             return true;
         } catch (Exception e) {
-            // Log the exception and return false on failure
             System.err.println("Failed to save review: " + e.getMessage());
             return false;
         }
