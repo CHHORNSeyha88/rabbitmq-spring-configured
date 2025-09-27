@@ -31,11 +31,11 @@ public class CompanyServiceImpl {
 
     public void updateCompanyRating(ReviewMessage reviewMessage) {
         System.out.println(reviewMessage.getDescription());
-        Company existCompany = companyRepository.findById(reviewMessage.getCompany())
+        Company existCompany = companyRepository.findById(reviewMessage.getCompanyId())
                 .orElseThrow(() -> new EntityNotFoundException("not found"));
 
         // Corrected Feign client call: use the companyId from the ReviewMessage
-        double averageRating = client.getAverageReviewRating(reviewMessage.getCompany());
+        double averageRating = client.getAverageReviewRating(reviewMessage.getCompanyId());
 
         existCompany.setRating(averageRating);
         companyRepository.save(existCompany);

@@ -15,5 +15,5 @@ public class ReviewMessage {
     private String title;
     private String description;
     private double rating;
-    private Long company;
+    private Long companyId;
 }
