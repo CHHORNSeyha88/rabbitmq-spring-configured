@@ -1,0 +1,4 @@
+rootProject.name = 'demo-rabbitmq'
+include 'review-service'
+include 'company-service'
+
